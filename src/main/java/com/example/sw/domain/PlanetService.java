@@ -2,6 +2,8 @@ package com.example.sw.domain;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PlanetService {
     private PlanetRepository planetRepository;
@@ -12,5 +14,9 @@ public class PlanetService {
 
     public Planet create(Planet planet) {
         return planetRepository.save(planet);
+    }
+
+    public Optional<Planet> get(Long id) {
+        return planetRepository.findById(id);
     }
 }
