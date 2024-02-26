@@ -1,6 +1,8 @@
 package com.example.sw.domain;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
@@ -18,5 +20,8 @@ public class PlanetService {
 
     public Optional<Planet> get(Long id) {
         return planetRepository.findById(id);
+    }
+    public Optional<Planet> getByName(String name) {
+        return planetRepository.findByName(name);
     }
 }
