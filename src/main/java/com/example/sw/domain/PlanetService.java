@@ -1,9 +1,9 @@
 package com.example.sw.domain;
 
-import jakarta.websocket.server.PathParam;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +21,17 @@ public class PlanetService {
     public Optional<Planet> get(Long id) {
         return planetRepository.findById(id);
     }
+
     public Optional<Planet> getByName(String name) {
         return planetRepository.findByName(name);
+    }
+
+    public List<Planet> list(String terrain, String climate) {
+        Example<Planet> query = QueryBuilder.makeQuery(new Planet(climate, terrain));
+        return planetRepository.findAll(query);
+    }
+
+    public void remove(Long id) {
+        planetRepository.deleteById(id);
     }
 }

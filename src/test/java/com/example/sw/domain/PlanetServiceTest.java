@@ -1,41 +1,35 @@
 package com.example.sw.domain;
 
-import static com.example.sw.common.PlanetConstants.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
-
-import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Example;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
-// aqui só vai passar apenas as class que eu quero que seja carregada
-// @SpringBootTest(classes = PlanetService.class)
 
-//@SpringBootTest(classes = PlanetService.class)
+import static com.example.sw.common.PlanetConstants.INVALID_PLANET;
+import static com.example.sw.common.PlanetConstants.PLANET;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 public class PlanetServiceTest {
-    //@Autowired
-    @InjectMocks // Instancia o planetService
+    @InjectMocks
     private PlanetService planetService;
 
-    //@MockBean
     @Mock
     private PlanetRepository planetRepository;
 
-
     @Test
-    // operacao_estado_returno
-    public void createPlanet_WithValidData_returnsPlanet() {
-        when(planetRepository.save(PLANET)).thenReturn(PLANET);// when quando //thenReturn então retornar
+    public void createPlanet_WithValidData_ReturnsPlanet() {
+        when(planetRepository.save(PLANET)).thenReturn(PLANET);
 
         Planet sut = planetService.create(PLANET);
 
@@ -43,32 +37,33 @@ public class PlanetServiceTest {
     }
 
     @Test
-    // operacao_estado_returno
-    public void createPlanet_WithInvalidData_throwsException() {
+    public void createPlanet_WithInvalidData_ThrowsException() {
         when(planetRepository.save(INVALID_PLANET)).thenThrow(RuntimeException.class);
 
         assertThatThrownBy(() -> planetService.create(INVALID_PLANET)).isInstanceOf(RuntimeException.class);
     }
+
     @Test
-    public void getPlanet_ByExistingId_returnsPlanet() {
-        // AAA - ARANGE, ACT, E ASSERT
-        when(planetRepository.findById(anyLong())).thenReturn(Optional.of(PLANET));
+    public void getPlanet_ByExistingId_ReturnsPlanet() {
+        when(planetRepository.findById(1L)).thenReturn(Optional.of(PLANET));
 
         Optional<Planet> sut = planetService.get(1L);
 
         assertThat(sut).isNotEmpty();
         assertThat(sut.get()).isEqualTo(PLANET);
     }
+
     @Test
-    public void getPlanet_ByUnexistingId_returnsEmpty() {
-        when(planetRepository.findById(anyLong())).thenReturn(Optional.empty());
+    public void getPlanet_ByUnexistingId_ReturnsEmpty() {
+        when(planetRepository.findById(1L)).thenReturn(Optional.empty());
 
         Optional<Planet> sut = planetService.get(1L);
 
         assertThat(sut).isEmpty();
     }
+
     @Test
-    public void getPlanet_byExistingName_returnsPlanet() {
+    public void getPlanet_ByExistingName_ReturnsPlanet() {
         when(planetRepository.findByName(PLANET.getName())).thenReturn(Optional.of(PLANET));
 
         Optional<Planet> sut = planetService.getByName(PLANET.getName());
@@ -78,12 +73,48 @@ public class PlanetServiceTest {
     }
 
     @Test
-    public void getPlanet_ByUnexistingName_returnsEmpty() {
+    public void getPlanet_ByUnexistingName_ReturnsEmpty() {
         final String name = "Unexisting name";
         when(planetRepository.findByName(name)).thenReturn(Optional.empty());
 
         Optional<Planet> sut = planetService.getByName(name);
 
         assertThat(sut).isEmpty();
+    }
+
+    @Test
+    public void listPlanets_ReturnsAllPlanets() {
+        List<Planet> planets = new ArrayList<>() {
+            {
+                add(PLANET);
+            }
+        };
+        Example<Planet> query = QueryBuilder.makeQuery(new Planet(PLANET.getClimate(), PLANET.getTerrain()));
+        when(planetRepository.findAll(query)).thenReturn(planets);
+
+        List<Planet> sut = planetService.list(PLANET.getTerrain(), PLANET.getClimate());
+
+        assertThat(sut).isNotEmpty();
+        assertThat(sut).hasSize(1);
+        assertThat(sut.get(0)).isEqualTo(PLANET);
+    }
+
+    @Test
+    public void listPlanets_ReturnsNoPlanets() {
+        when(planetRepository.findAll(any())).thenReturn(Collections.emptyList());
+
+        List<Planet> sut = planetService.list(PLANET.getTerrain(), PLANET.getClimate());
+
+        assertThat(sut).isEmpty();
+    }
+
+    @Test
+    public void removePlanet_WithExistingId_doesNotThrowAnyException() {
+        // TODO implement
+    }
+
+    @Test
+    public void removePlanet_WithUnexistingId_ThrowsException() {
+        // TODO implement
     }
 }
