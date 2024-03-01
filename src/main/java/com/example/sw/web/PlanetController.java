@@ -2,6 +2,7 @@ package com.example.sw.web;
 
 import com.example.sw.domain.Planet;
 import com.example.sw.domain.PlanetService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,10 @@ public class PlanetController {
     @Autowired
     private PlanetService planetService;
 
+//    Precissei colocar o @Valid para valida minhas anotaçoes na class
+//    Planet, @NotEmpty, @Column(nullable = false, unique = true)
     @PostMapping
-    public ResponseEntity<Planet> create(@RequestBody Planet planet) {
+    public ResponseEntity<Planet> create(@RequestBody @Valid Planet planet) {
         Planet planetCreated = planetService.create(planet);
         return ResponseEntity.status(HttpStatus.CREATED).body(planetCreated);
     }
