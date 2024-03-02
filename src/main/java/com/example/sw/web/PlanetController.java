@@ -16,8 +16,6 @@ public class PlanetController {
     @Autowired
     private PlanetService planetService;
 
-//    Precissei colocar o @Valid para valida minhas anotaçoes na class
-//    Planet, @NotEmpty, @Column(nullable = false, unique = true)
     @PostMapping
     public ResponseEntity<Planet> create(@RequestBody @Valid Planet planet) {
         Planet planetCreated = planetService.create(planet);

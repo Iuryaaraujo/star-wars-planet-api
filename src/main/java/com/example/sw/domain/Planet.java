@@ -1,11 +1,6 @@
 package com.example.sw.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
@@ -15,12 +10,15 @@ public class Planet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty // não aceita vazio e nem null
-    @Column(nullable = false, unique = true) // não aceita nulo, valor único
+
+    @NotEmpty
+    @Column(nullable = false, unique = true)
     private String name;
+
     @NotEmpty
     @Column(nullable = false)
     private String climate;
+
     @NotEmpty
     @Column(nullable = false)
     private String terrain;
@@ -34,6 +32,13 @@ public class Planet {
     }
 
     public Planet(String name, String climate, String terrain) {
+        this.name = name;
+        this.climate = climate;
+        this.terrain = terrain;
+    }
+
+    public Planet(Long id, String name, String climate, String terrain) {
+        this.id = id;
         this.name = name;
         this.climate = climate;
         this.terrain = terrain;
@@ -78,11 +83,7 @@ public class Planet {
 
     @Override
     public String toString() {
-        return "Planet{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", climate='" + climate + '\'' +
-                ", terrain='" + terrain + '\'' +
-                '}';
+        return "Planet [climate=" + climate + ", id=" + id + ", name=" + name + ", terrain=" + terrain + "]";
     }
+
 }
