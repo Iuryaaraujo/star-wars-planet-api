@@ -1,16 +1,3 @@
-# Teste com MOCHITO
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/Iuryaaraujo/workshop-springboot3-jpa/blob/main/LICENSE) 
-![Dublês de Teste](https://github.com/Iuryaaraujo/star-wars-planet-api/assets/132828748/bf3c4bbd-134b-42c7-a376-9b035db68ed2)
-
-
-## Modelo conceitual
-![Cenarios+de+Teste+-+Cadastro+de+Planeta](https://github.com/Iuryaaraujo/star-wars-planet-api/assets/132828748/d7394aea-97c5-4a55-a7ac-012fa549d37e)
-
-
-## Camadas Lógicas
-![Cenarios+de+Teste+-+Listagem+de+Planetas](https://github.com/Iuryaaraujo/star-wars-planet-api/assets/132828748/ee03f315-103b-412f-8dd9-60b5179aa4da)
-
-
 <h1 align="center">
   StarWars Planet API (sw-planet-api)
 </h1>
@@ -21,14 +8,12 @@
   <a href="#-configuration">Configuração</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-developing">Construir e Executar</a>
 </p>
-
 <p align="center">
   <img alt="Licença" src="https://img.shields.io/static/v1?label=Licença&message=MIT&color=8257E5&labelColor=000000">
   <img src="https://img.shields.io/static/v1?label=Curso na Udemy&message=Testes automatizados na prática com Spring Boot&color=8257E5&labelColor=000000" alt="Testes automatizados na prática com Spring Boot" />
 </p>
 
 <br>
-
 ## ✨ Technologies
 
 - [Mysql](https://dev.mysql.com/downloads/mysql/)
@@ -77,6 +62,19 @@ Para construir e testar, execute o comando:
 ```sh
 $ ./mvnw clean verify
 ```
+
+
+# Teste com MOCHITO
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/Iuryaaraujo/workshop-springboot3-jpa/blob/main/LICENSE) 
+![Dublês de Teste](https://github.com/Iuryaaraujo/star-wars-planet-api/assets/132828748/bf3c4bbd-134b-42c7-a376-9b035db68ed2)
+
+
+## Modelo conceitual
+![Cenarios+de+Teste+-+Cadastro+de+Planeta](https://github.com/Iuryaaraujo/star-wars-planet-api/assets/132828748/d7394aea-97c5-4a55-a7ac-012fa549d37e)
+
+
+## Camadas Lógicas
+![Cenarios+de+Teste+-+Listagem+de+Planetas](https://github.com/Iuryaaraujo/star-wars-planet-api/assets/132828748/ee03f315-103b-412f-8dd9-60b5179aa4da)
 
 
 # Tecnologias utilizadas
